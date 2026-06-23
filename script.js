@@ -13,6 +13,7 @@ const openPhotoButton = document.querySelector("#openPhoto");
 const prevPhotoButton = document.querySelector("#prevPhoto");
 const nextPhotoButton = document.querySelector("#nextPhoto");
 const musicToggle = document.querySelector("#musicToggle");
+const backgroundMusic = document.querySelector("#backgroundMusic");
 const thumbs = [...document.querySelectorAll(".thumb")];
 const screens = [...document.querySelectorAll(".screen")];
 const dots = [...document.querySelectorAll(".dot")];
@@ -81,6 +82,7 @@ let musicGain;
 let musicTimer;
 let musicStep = 0;
 let musicEnabled = true;
+let usingGeneratedMusic = false;
 
 document.body.classList.add("no-scroll");
 
@@ -167,6 +169,15 @@ function scheduleMusicBar() {
 function startMusic() {
   if (!musicEnabled) return;
 
+  if (backgroundMusic && !usingGeneratedMusic) {
+    backgroundMusic.volume = 0.72;
+    backgroundMusic.play().catch(() => {
+      usingGeneratedMusic = true;
+      startMusic();
+    });
+    return;
+  }
+
   if (!audioContext) {
     audioContext = new AudioContext();
     musicGain = audioContext.createGain();
@@ -183,6 +194,10 @@ function startMusic() {
 }
 
 function stopMusic() {
+  if (backgroundMusic) {
+    backgroundMusic.pause();
+  }
+
   if (musicTimer) {
     window.clearInterval(musicTimer);
     musicTimer = undefined;
@@ -199,7 +214,7 @@ function setMusicEnabled(enabled) {
   musicToggle?.setAttribute("aria-pressed", String(enabled));
 
   if (musicToggle) {
-    musicToggle.textContent = enabled ? "Som ligado" : "Som desligado";
+    musicToggle.textContent = enabled ? "Música ligada" : "Música desligada";
   }
 
   if (enabled) {
@@ -211,6 +226,10 @@ function setMusicEnabled(enabled) {
     stopMusic();
   }
 }
+
+backgroundMusic?.addEventListener("error", () => {
+  usingGeneratedMusic = true;
+});
 
 function copyWithFallback(text) {
   const textarea = document.createElement("textarea");
