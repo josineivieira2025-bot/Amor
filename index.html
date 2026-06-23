@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entrega especial</title>
+    <meta
+      name="description"
+      content="Uma surpresa feita por Josinei para Rafaelle."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="experience">
+      <section class="screen gift-screen is-active" id="presente">
+        <div class="gift-bg" aria-hidden="true"></div>
+        <div class="gift-shell">
+          <p class="kicker">Entrega reservada</p>
+          <div class="gift-box" aria-hidden="true">
+            <span class="lid"></span>
+            <span class="ribbon ribbon-v"></span>
+            <span class="ribbon ribbon-h"></span>
+            <span class="spark spark-one"></span>
+            <span class="spark spark-two"></span>
+            <span class="spark spark-three"></span>
+          </div>
+          <h1>Rafaelle, tem uma surpresa esperando por você.</h1>
+          <p class="gift-copy">
+            Abre com calma. Não é só uma página, é um pedacinho do que eu sinto.
+          </p>
+          <button class="main-button" id="openGift" type="button">
+            Abrir presente
+          </button>
+        </div>
+      </section>
+
+      <section class="screen reveal-screen" id="revelacao">
+        <img
+          class="reveal-photo"
+          src="assets/rafa-josi-04.jpeg"
+          alt="Rafaelle e Josinei"
+        />
+        <div class="screen-shade"></div>
+        <div class="content wide reveal">
+          <p class="kicker">De Josinei para Rafaelle</p>
+          <h2>Algumas pessoas chegam e mudam o jeito que a gente enxerga os dias.</h2>
+          <p>
+            Você virou saudade, vontade, pensamento bom e futuro que eu ainda
+            imagino com carinho. Mesmo quando a gente fica meio afastado, uma
+            parte de mim continua escolhendo você.
+          </p>
+          <a class="main-button" href="#lembrancas">Ver nossas lembranças</a>
+        </div>
+      </section>
+
+      <section class="screen gallery-screen" id="lembrancas">
+        <div class="content gallery-copy reveal">
+          <p class="kicker dark">Nossa galeria</p>
+          <h2>Momentos que eu guardo como se fossem bilhetes do coração.</h2>
+          <p>
+            Troque a foto principal, abra em tela cheia, passe pelas lembranças
+            e deixa cada imagem falar um pouco por nós.
+          </p>
+        </div>
+
+        <div class="gallery-stage reveal">
+          <button class="gallery-arrow prev" id="prevPhoto" type="button" aria-label="Foto anterior">
+            ‹
+          </button>
+          <button class="hero-memory" id="openPhoto" type="button" aria-label="Abrir foto em tela cheia">
+            <img id="mainPhoto" src="assets/rafa-josi-01.jpeg" alt="Foto principal de Rafaelle e Josinei" />
+            <span id="photoCaption">Rafaelle e Josinei, um dos nossos momentos.</span>
+          </button>
+          <button class="gallery-arrow next" id="nextPhoto" type="button" aria-label="Próxima foto">
+            ›
+          </button>
+        </div>
+
+        <div class="thumb-strip reveal" id="thumbStrip" aria-label="Miniaturas das fotos">
+          <button class="thumb is-selected" type="button" data-index="0">
+            <img src="assets/rafa-josi-01.jpeg" alt="Miniatura 1" />
+          </button>
+          <button class="thumb" type="button" data-index="1">
+            <img src="assets/rafa-josi-02.jpeg" alt="Miniatura 2" />
+          </button>
+          <button class="thumb" type="button" data-index="2">
+            <img src="assets/rafa-josi-03.jpeg" alt="Miniatura 3" />
+          </button>
+          <button class="thumb" type="button" data-index="3">
+            <img src="assets/rafa-josi-04.jpeg" alt="Miniatura 4" />
+          </button>
+          <button class="thumb" type="button" data-index="4">
+            <img src="assets/rafa-josi-05.jpeg" alt="Miniatura 5" />
+          </button>
+          <button class="thumb" type="button" data-index="5">
+            <img src="assets/rafa-josi-06.jpeg" alt="Miniatura 6" />
+          </button>
+          <button class="thumb" type="button" data-index="6">
+            <img src="assets/rafa-josi-07.jpeg" alt="Miniatura 7" />
+          </button>
+          <button class="thumb" type="button" data-index="7">
+            <img src="assets/rafa-josi-08.jpeg" alt="Miniatura 8" />
+          </button>
+          <button class="thumb" type="button" data-index="8">
+            <img src="assets/rafa-josi-09.jpeg" alt="Miniatura 9" />
+          </button>
+        </div>
+      </section>
+
+      <section class="screen mosaic-screen" id="motivos">
+        <div class="content reveal">
+          <p class="kicker dark">Quatro verdades</p>
+          <h2>Coisas que talvez eu não fale do jeito certo, mas sinto de verdade.</h2>
+        </div>
+
+        <div class="reason-grid">
+          <button class="reason-card reveal" type="button">
+            <span>01</span>
+            <strong>Eu sinto sua falta.</strong>
+            <p>Não é falta de costume. É falta de você mesmo, do seu jeito, da sua voz e da paz que você traz.</p>
+          </button>
+          <button class="reason-card reveal" type="button">
+            <span>02</span>
+            <strong>Eu ainda acredito na gente.</strong>
+            <p>Mesmo com distância, silêncio ou fase difícil, eu não quero desistir do que é bonito entre nós.</p>
+          </button>
+          <button class="reason-card reveal" type="button">
+            <span>03</span>
+            <strong>Quero te cuidar melhor.</strong>
+            <p>Com mais atitude, mais conversa, mais presença e menos orgulho.</p>
+          </button>
+          <button class="reason-card reveal" type="button">
+            <span>04</span>
+            <strong>Imagino um futuro com você.</strong>
+            <p>Uma casa, uma rotina, nossos planos e a vida ficando mais leve do seu lado.</p>
+          </button>
+        </div>
+      </section>
+
+      <section class="screen video-screen" id="video">
+        <div class="video-panel reveal">
+          <div>
+            <p class="kicker dark">Um pedaço vivo nosso</p>
+            <h2>Quando a saudade apertar, volta aqui.</h2>
+            <p>
+              Deixei esse vídeo como lembrança, porque algumas coisas são
+              melhores quando a gente vê, escuta e sente de novo.
+            </p>
+          </div>
+          <div class="video-frame">
+            <video controls playsinline preload="metadata">
+              <source src="assets/video-casal.mp4" type="video/mp4" />
+              Seu navegador não conseguiu abrir este vídeo.
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen letter-screen" id="carta">
+        <div class="letter-card reveal">
+          <p class="kicker dark">A parte que eu precisava te dizer</p>
+          <h2>Rafaelle, essa carta é minha forma de chegar perto.</h2>
+          <article class="letter-paper">
+            <div class="typed-letter" id="typedLetter" aria-live="polite"></div>
+          </article>
+          <div class="letter-actions">
+            <button class="soft-button" id="typeAgain" type="button">Ler de novo</button>
+            <button class="soft-button" id="copyLetter" type="button">Copiar carta</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen end-screen" id="final">
+        <div class="end-content reveal">
+          <p class="kicker">Assinado</p>
+          <h2>Com amor, Josinei.</h2>
+          <p>
+            Para Rafaelle: eu não quero pressa, eu quero verdade. Um passo de
+            cada vez, mas com você.
+          </p>
+          <button class="main-button" id="sendHeart" type="button">Mandar carinho</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="progress-dots" aria-label="Progresso da surpresa">
+      <a class="dot is-active" href="#presente" aria-label="Presente"></a>
+      <a class="dot" href="#revelacao" aria-label="Revelação"></a>
+      <a class="dot" href="#lembrancas" aria-label="Lembranças"></a>
+      <a class="dot" href="#motivos" aria-label="Motivos"></a>
+      <a class="dot" href="#video" aria-label="Vídeo"></a>
+      <a class="dot" href="#carta" aria-label="Carta"></a>
+      <a class="dot" href="#final" aria-label="Final"></a>
+    </div>
+
+    <dialog class="photo-modal" id="photoModal" aria-label="Foto ampliada">
+      <button class="close-modal" id="closeModal" type="button">Fechar</button>
+      <img id="modalPhoto" src="assets/rafa-josi-01.jpeg" alt="Foto ampliada de Rafaelle e Josinei" />
+    </dialog>
+
+    <div class="toast" role="status" aria-live="polite" id="toast">
+      Carta copiada.
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

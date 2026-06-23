@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: surpresa-rafaelle-josinei
+    runtime: static
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
