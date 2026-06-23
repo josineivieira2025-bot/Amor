@@ -582,6 +582,43 @@ body.no-scroll .progress-dots {
   pointer-events: none;
 }
 
+.music-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 14;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(35, 31, 35, 0.66);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 900;
+  opacity: 1;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 32px rgba(35, 31, 35, 0.2);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+body.no-scroll .music-toggle {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.music-toggle:hover {
+  transform: translateY(-2px);
+}
+
+.music-toggle.is-muted {
+  background: rgba(118, 29, 57, 0.72);
+}
+
 .dot {
   width: 10px;
   height: 10px;

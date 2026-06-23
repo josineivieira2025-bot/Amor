@@ -12,6 +12,7 @@ const photoCaption = document.querySelector("#photoCaption");
 const openPhotoButton = document.querySelector("#openPhoto");
 const prevPhotoButton = document.querySelector("#prevPhoto");
 const nextPhotoButton = document.querySelector("#nextPhoto");
+const musicToggle = document.querySelector("#musicToggle");
 const thumbs = [...document.querySelectorAll(".thumb")];
 const screens = [...document.querySelectorAll(".screen")];
 const dots = [...document.querySelectorAll(".dot")];
@@ -75,6 +76,11 @@ Josinei.`;
 let currentPhoto = 0;
 let typingTimer;
 let hasStartedTyping = false;
+let audioContext;
+let musicGain;
+let musicTimer;
+let musicStep = 0;
+let musicEnabled = true;
 
 document.body.classList.add("no-scroll");
 
@@ -87,7 +93,7 @@ function showToast(message) {
 function createHeart(x = window.innerWidth / 2, y = window.innerHeight / 2) {
   const heart = document.createElement("span");
   heart.className = "floating-heart";
-  heart.textContent = "♥";
+  heart.textContent = "\u2665";
   heart.style.setProperty("--x", `${x}px`);
   heart.style.setProperty("--y", `${y}px`);
   heart.style.setProperty("--size", `${Math.round(20 + Math.random() * 24)}px`);
@@ -106,6 +112,103 @@ function burstHearts(count = 12) {
         centerY + (Math.random() - 0.5) * 180,
       );
     }, index * 65);
+  }
+}
+
+function midiToFrequency(note) {
+  return 440 * 2 ** ((note - 69) / 12);
+}
+
+function playTone(note, start, duration, volume = 0.055) {
+  if (!audioContext || !musicGain || !musicEnabled) return;
+
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  const filter = audioContext.createBiquadFilter();
+
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(midiToFrequency(note), start);
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(1200, start);
+
+  gain.gain.setValueAtTime(0, start);
+  gain.gain.linearRampToValueAtTime(volume, start + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+  oscillator.connect(filter);
+  filter.connect(gain);
+  gain.connect(musicGain);
+
+  oscillator.start(start);
+  oscillator.stop(start + duration + 0.05);
+}
+
+function scheduleMusicBar() {
+  if (!audioContext || !musicEnabled) return;
+
+  const now = audioContext.currentTime + 0.03;
+  const chords = [
+    [57, 60, 64, 69],
+    [53, 57, 60, 65],
+    [55, 59, 62, 67],
+    [52, 55, 60, 64],
+  ];
+  const chord = chords[musicStep % chords.length];
+
+  chord.forEach((note, index) => {
+    playTone(note, now + index * 0.34, 1.25, index === 0 ? 0.042 : 0.032);
+    playTone(note + 12, now + index * 0.34 + 0.04, 0.9, 0.018);
+  });
+
+  playTone(chord[0] - 12, now, 2.1, 0.034);
+  musicStep += 1;
+}
+
+function startMusic() {
+  if (!musicEnabled) return;
+
+  if (!audioContext) {
+    audioContext = new AudioContext();
+    musicGain = audioContext.createGain();
+    musicGain.gain.value = 0.34;
+    musicGain.connect(audioContext.destination);
+  }
+
+  audioContext.resume();
+
+  if (!musicTimer) {
+    scheduleMusicBar();
+    musicTimer = window.setInterval(scheduleMusicBar, 2200);
+  }
+}
+
+function stopMusic() {
+  if (musicTimer) {
+    window.clearInterval(musicTimer);
+    musicTimer = undefined;
+  }
+
+  if (musicGain && audioContext) {
+    musicGain.gain.setTargetAtTime(0, audioContext.currentTime, 0.06);
+  }
+}
+
+function setMusicEnabled(enabled) {
+  musicEnabled = enabled;
+  musicToggle?.classList.toggle("is-muted", !enabled);
+  musicToggle?.setAttribute("aria-pressed", String(enabled));
+
+  if (musicToggle) {
+    musicToggle.textContent = enabled ? "Som ligado" : "Som desligado";
+  }
+
+  if (enabled) {
+    if (musicGain && audioContext) {
+      musicGain.gain.setTargetAtTime(0.34, audioContext.currentTime, 0.12);
+    }
+    startMusic();
+  } else {
+    stopMusic();
   }
 }
 
@@ -161,11 +264,16 @@ function typeLetter() {
 
 function unlockGift() {
   document.body.classList.remove("no-scroll");
+  startMusic();
   document.querySelector("#revelacao")?.scrollIntoView({ behavior: "smooth" });
   burstHearts(18);
 }
 
 openGiftButton?.addEventListener("click", unlockGift);
+
+musicToggle?.addEventListener("click", () => {
+  setMusicEnabled(!musicEnabled);
+});
 
 prevPhotoButton?.addEventListener("click", () => setPhoto(currentPhoto - 1));
 nextPhotoButton?.addEventListener("click", () => setPhoto(currentPhoto + 1));
